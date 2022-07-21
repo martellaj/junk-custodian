@@ -1,54 +1,54 @@
 /**
- * Configuration object to be passed to MSAL instance on creation. 
+ * Configuration object to be passed to MSAL instance on creation.
  * For a full list of MSAL.js configuration parameters, visit:
- * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/configuration.md 
+ * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/configuration.md
  */
 const msalConfig = {
-    auth: {
-        // 'Application (client) ID' of app registration in Azure portal - this value is a GUID
-        clientId: "Enter_the_Application_Id_Here",
-        // Full directory URL, in the form of https://login.microsoftonline.com/<tenant>
-        authority: "Enter_the_Cloud_Instance_Id_HereEnter_the_Tenant_Info_Here",
-        // Full redirect URL, in form of http://localhost:3000
-        redirectUri: "Enter_the_Redirect_Uri_Here",
+  auth: {
+    // 'Application (client) ID' of app registration in Azure portal - this value is a GUID
+    clientId: "91d9b297-6b92-4d46-9393-6fad4ff16eeb",
+    // Full directory URL, in the form of https://login.microsoftonline.com/<tenant>
+    authority: "https://login.microsoftonline.com/common",
+    // Full redirect URL, in form of http://localhost:3000
+    redirectUri: "http://localhost:3001",
+  },
+  cache: {
+    cacheLocation: "sessionStorage", // This configures where your cache will be stored
+    storeAuthStateInCookie: false, // Set this to "true" if you are having issues on IE11 or Edge
+  },
+  system: {
+    loggerOptions: {
+      loggerCallback: (level, message, containsPii) => {
+        if (containsPii) {
+          return;
+        }
+        switch (level) {
+          case msal.LogLevel.Error:
+            console.error(message);
+            return;
+          case msal.LogLevel.Info:
+            console.info(message);
+            return;
+          case msal.LogLevel.Verbose:
+            console.debug(message);
+            return;
+          case msal.LogLevel.Warning:
+            console.warn(message);
+            return;
+        }
+      },
     },
-    cache: {
-        cacheLocation: "sessionStorage", // This configures where your cache will be stored
-        storeAuthStateInCookie: false, // Set this to "true" if you are having issues on IE11 or Edge
-    },
-    system: {	
-        loggerOptions: {	
-            loggerCallback: (level, message, containsPii) => {	
-                if (containsPii) {		
-                    return;		
-                }		
-                switch (level) {		
-                    case msal.LogLevel.Error:		
-                        console.error(message);		
-                        return;		
-                    case msal.LogLevel.Info:		
-                        console.info(message);		
-                        return;		
-                    case msal.LogLevel.Verbose:		
-                        console.debug(message);		
-                        return;		
-                    case msal.LogLevel.Warning:		
-                        console.warn(message);		
-                        return;		
-                }	
-            }	
-        }	
-    }
+  },
 };
 
 /**
  * Scopes you add here will be prompted for user consent during sign-in.
  * By default, MSAL.js will add OIDC scopes (openid, profile, email) to any login request.
- * For more information about OIDC scopes, visit: 
+ * For more information about OIDC scopes, visit:
  * https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
  */
 const loginRequest = {
-    scopes: ["User.Read"]
+  scopes: ["User.Read"],
 };
 
 /**
@@ -56,6 +56,6 @@ const loginRequest = {
  * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/resources-and-scopes.md
  */
 const tokenRequest = {
-    scopes: ["User.Read", "Mail.Read"],
-    forceRefresh: false // Set this to "true" to skip a cached token and go to the server to get a new token
+  scopes: ["User.Read", "Mail.Read", "Mail.ReadWrite"],
+  forceRefresh: false, // Set this to "true" to skip a cached token and go to the server to get a new token
 };
