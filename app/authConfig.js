@@ -10,7 +10,8 @@ const msalConfig = {
     // Full directory URL, in the form of https://login.microsoftonline.com/<tenant>
     authority: "https://login.microsoftonline.com/common",
     // Full redirect URL, in form of http://localhost:3000
-    redirectUri: "http://localhost:3001",
+    // redirectUri: "http://localhost:3001",
+    redirectUri: "https://junk-custodian.herokuapp.com/",
   },
   cache: {
     cacheLocation: "sessionStorage", // This configures where your cache will be stored
